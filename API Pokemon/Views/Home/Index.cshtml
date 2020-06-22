@@ -1,10 +1,11 @@
 ﻿<html lang="en">
+@model API_Pokemon.Models.RootObject
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokemon catalog</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
-    rel="stylesheet" />
+          rel="stylesheet" />
     <link href="~/Content/style.css" rel="stylesheet" />
 </head>
 <body>
@@ -24,13 +25,31 @@
             </div>
         </header>
         <section class="catalog__content" data-content>
-            <p class="catalog__info hide" data-info>There are no results</p>
+            @for (int i = 0; i < Model.cards.Count; i++)
+            {
+
+                <article class="card" data-card>
+                    <header class="card__header">
+                        <h2 class="card__heading">
+                            @Model.cards.ElementAt(i).name
+                        </h2>
+                        <p class="card__number">Nr:    @Model.cards.ElementAt(i).number</p>
+                    </header>
+
+                    <img class="card__image" src="@Model.cards.ElementAt(i).imageUrl" alt="">
+                    <p class="card__description"><span class="bold">Supertype:</span> @Model.cards.ElementAt(i).supertype</p>
+                    <p class="card__description "><span class="bold">Subtype:</span>@Model.cards.ElementAt(i).subtype</p>
+                    <p class="card__description "><span class="bold">Rarity:</span> @Model.cards.ElementAt(i).rarity</p>
+                </article>
+
+
+            }
         </section>
-        <footer class="catalog__footer">
-            <button class="catalog__button" data-button>Load more</button>
-            <div class="catalog__loader hide" data-loader></div>
-        </footer>
-    </main>
+            <footer class="catalog__footer">
+                <button class="catalog__button" data-button>Load more</button>
+                <div class="catalog__loader hide" data-loader></div>
+            </footer>
+        </main>
 
     <script src="./js/index.js"></script>
     <script>
