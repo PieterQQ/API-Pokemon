@@ -14,10 +14,11 @@ namespace API_Pokemon.Controllers
     public class HomeController : Controller
     {
 
-        public static int page = 8;
+      static int page ;
         public ActionResult Index()
         {
-            page += 8;
+
+            page += 4;
             ViewBag.Name = page;
            try {
 
