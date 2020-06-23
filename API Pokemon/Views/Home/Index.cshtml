@@ -1,7 +1,8 @@
 ﻿<html lang="en">
 @model API_Pokemon.Models.RootObject
 <head>
-  
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokemon catalog</title>
@@ -10,18 +11,18 @@
     <link href="~/Content/style.css" rel="stylesheet" />
 </head>
 <body>
-    <main class="catalog">
-        @using (Ajax.BeginForm("GetCards", "Home", new AjaxOptions { UpdateTargetId = "Card",InsertionMode=InsertionMode.InsertBefore}))
-        {
-            <header class="catalog__header">
-                <h1 class="catalog__heading">
-                    <span class="catalog__heading--primary">Pokemon</span> catalog
-                </h1>
-             
-            </header>
+    <main class="catalog" id="catalog">
+        <header class="catalog__header">
+            <h1 class="catalog__heading">
+                <span class="catalog__heading--primary">Pokemon</span> catalog
+            </h1>
 
-            <section class="catalog__content" data-content>
-                @for (int i = 0; i < @Model.cards.Count; i++)
+        </header>
+        @using (Ajax.BeginForm("Index", "Home", new AjaxOptions { UpdateTargetId = "catalog", InsertionMode = InsertionMode.ReplaceWith }))
+        {
+
+            <section class="catalog__content" id="cards" data-content>
+                @for (int i = 0; i < @ViewBag.Name; i++)
                 {
 
                     <article class="card" data-card>
@@ -37,22 +38,21 @@
                         <p class="card__description "><span class="bold">Subtype:</span>@Model.cards.ElementAt(i).subtype</p>
                         <p class="card__description "><span class="bold">Rarity:</span> @Model.cards.ElementAt(i).rarity</p>
                     </article>
-
-
                 }
-
             </section>
             <footer class="catalog__footer">
                 <button class="catalog__button" data-button id="click">Load More</button>
 
                 <div class="catalog__loader hide" data-loader></div>
             </footer>
+
         }
+
     </main>
 
     <script src="./js/index.js"></script>
     <script>
-       
+
     </script>
 </body>
 </html>
