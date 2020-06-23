@@ -11,17 +11,19 @@
 </head>
 <body>
     <main class="catalog" id="catalog">
+        
+
+        @using (Ajax.BeginForm("Index", "Home", new AjaxOptions { UpdateTargetId = "cards", InsertionMode = InsertionMode.ReplaceWith }))
+        {
         <header class="catalog__header">
             <h1 class="catalog__heading">
                 <span class="catalog__heading--primary">Pokemon</span> catalog
             </h1>
-
+            <button class="catalog__button" data-button id="click">Load More</button>
         </header>
-        @using (Ajax.BeginForm("Index", "Home", new AjaxOptions { UpdateTargetId = "catalog", InsertionMode = InsertionMode.ReplaceWith }))
-        {
 
             <section class="catalog__content" id="cards" data-content>
-                @for (int i = 0; i < @ViewBag.Name; i++)
+                @for (int i = @ViewBag.Name; i >0 ; i--)
                 {
 
                     <article class="card" data-card>
@@ -39,11 +41,7 @@
                     </article>
                 }
             </section>
-            <footer class="catalog__footer">
-                <button class="catalog__button" data-button id="click">Load More</button>
-
-                <div class="catalog__loader hide" data-loader></div>
-            </footer>
+            
 
         }
 
