@@ -6,11 +6,11 @@ using System.Web;
 
 namespace API_Pokemon.Models
 {
-   
+
     public class Pokemon
     {
         [JsonProperty("name")]
-          public string name { get; set; }
+        public string name { get; set; }
         [JsonProperty("number")]
         public string number { get; set; }
         [JsonProperty("supertype")]
