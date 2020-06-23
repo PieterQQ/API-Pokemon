@@ -17,8 +17,7 @@ namespace API_Pokemon.Controllers
       static int page ;
         public ActionResult Index()
         {
-
-            page += 4;
+            page+=4;
             ViewBag.Name = page;
            try {
 
