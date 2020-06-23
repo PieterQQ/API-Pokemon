@@ -14,14 +14,23 @@ namespace API_Pokemon.Controllers
     {
         public ActionResult Index()
         {
-            WebClient wc = new WebClient();
-            var url = "https://api.pokemontcg.io/v1/cards";
+            try
+            {
+                WebClient wc = new WebClient();
+                var url = "https://api.pokemontcg.io/v1/card";
 
-            var pokemonstring = wc.DownloadString(url);
-            byte[] bytes = Encoding.Default.GetBytes(pokemonstring);
-            pokemonstring = Encoding.UTF8.GetString(bytes);
-            RootObject datalist = JsonConvert.DeserializeObject<RootObject>(pokemonstring);
-            return View(datalist);
+                var pokemonstring = wc.DownloadString(url);
+                byte[] bytes = Encoding.Default.GetBytes(pokemonstring);
+                pokemonstring = Encoding.UTF8.GetString(bytes);
+                RootObject datalist = JsonConvert.DeserializeObject<RootObject>(pokemonstring);
+                return View(datalist);
+            }
+            catch (WebException ex)
+            {
+
+                return Content(ex.Message.ToString());
+            }
+           
         }
     }
 }
