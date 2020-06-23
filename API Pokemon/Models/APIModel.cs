@@ -25,7 +25,7 @@ namespace API_Pokemon.Models
     public class RootObject
     {
         public List<Pokemon> cards { get; set; }
-        public int MyProperty { get; set; }
+   
 
     }
 }

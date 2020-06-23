@@ -17,12 +17,21 @@ namespace API_Pokemon.Controllers
       static int page ;
         public ActionResult Index()
         {
-            page+=4;
+            int pagesize=200;
+            if (page < pagesize - 4)
+            {
+                page += 4;
+            }
+            else
+            { page = pagesize - 1;
+                ViewBag.End = "No more data";
+            }
+            
             ViewBag.Name = page;
            try {
 
                 WebClient wc = new WebClient();
-                var url = "https://api.pokemontcg.io/v1/cards";
+                var url = $"https://api.pokemontcg.io/v1/cards?pageSize={pagesize}";
 
                 string pokemonstring= wc.DownloadString(url);
           

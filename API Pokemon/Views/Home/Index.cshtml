@@ -23,6 +23,10 @@
         </header>
 
             <section class="catalog__content" id="cards" data-content>
+                @if (@ViewBag.Name==Model.cards.Count-1)
+                {
+                    @ViewBag.End
+                }
                 @for (int i = @ViewBag.Name; i >0 ; i--)
                 {
 
