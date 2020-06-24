@@ -15,6 +15,7 @@ namespace API_Pokemon.Controllers
     {
 
       static int page ;
+        static RootObject datalist;
         public ActionResult Index()
         {
             int pagesize=200;
@@ -29,16 +30,17 @@ namespace API_Pokemon.Controllers
             
             ViewBag.Name = page;
            try {
+                if (datalist  is null)
+                {
+                    WebClient wc = new WebClient();
+                    var url = $"https://api.pokemontcg.io/v1/cards?pageSize={pagesize}";
 
-                WebClient wc = new WebClient();
-                var url = $"https://api.pokemontcg.io/v1/cards?pageSize={pagesize}";
+                    string pokemonstring = wc.DownloadString(url);
 
-                string pokemonstring= wc.DownloadString(url);
-          
-                byte[] bytes = Encoding.Default.GetBytes(pokemonstring);
-                 pokemonstring=Encoding.UTF8.GetString(bytes);
-                RootObject datalist = JsonConvert.DeserializeObject<RootObject>(pokemonstring);
-               
+                    byte[] bytes = Encoding.Default.GetBytes(pokemonstring);
+                    pokemonstring = Encoding.UTF8.GetString(bytes);
+                    datalist = JsonConvert.DeserializeObject<RootObject>(pokemonstring);
+                }
                 return View(datalist);
             }
             catch (WebException ex)
